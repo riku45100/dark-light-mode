@@ -23,7 +23,12 @@ class Elementor_Widget extends \Elementor\Widget_Base{
   $this->add_responsive_control('radius',['label'=>'Border radius','type'=>\Elementor\Controls_Manager::SLIDER,'size_units'=>['px','%'],'range'=>['px'=>['min'=>0,'max'=>50],'%'=>['min'=>0,'max'=>50]],'selectors'=>['{{WRAPPER}} .fz-ldm-widget button'=>'border-radius: {{SIZE}}{{UNIT}};']]);
   $this->end_controls_section();
  }
- protected function render(){ $s=$this->get_settings_for_display();$style=esc_attr($s['style_type']);$show=($s['show_labels']??'')==='yes';$system=($s['show_system']??'')==='yes';$labels=['light'=>$show?$s['light_label']:'☀','dark'=>$show?$s['dark_label']:'🌙','system'=>$show?$s['system_label']:'◐';?>
- <div class="fz-ldm-widget fz-ldm-widget--<?php echo $style;?>" role="group" aria-label="Colour mode"><div class="fz-ldm-widget__group"><?php foreach(['light','dark'] as $mode):?><button type="button" data-fz-mode-value="<?php echo esc_attr($mode);?>" aria-pressed="false"><?php echo esc_html($labels[$mode]);?></button><?php endforeach;if($system):?><button type="button" data-fz-mode-value="system" aria-pressed="false"><?php echo esc_html($labels['system']);?></button><?php endif;?></div></div>
+ protected function render(){
+  $s=$this->get_settings_for_display(); $style=esc_attr($s['style_type']); $show=($s['show_labels']??'')==='yes'; $system=($s['show_system']??'')==='yes';
+  $labels=['light'=>$show?$s['light_label']:'☀','dark'=>$show?$s['dark_label']:'🌙','system'=>$show?$s['system_label']:'◐']; ?>
+  <div class="fz-ldm-widget fz-ldm-widget--<?php echo $style;?>" role="group" aria-label="Colour mode"><div class="fz-ldm-widget__group">
+  <?php foreach(['light','dark'] as $mode): ?><button type="button" data-fz-mode-value="<?php echo esc_attr($mode);?>" aria-pressed="false"><?php echo esc_html($labels[$mode]);?></button><?php endforeach; ?>
+  <?php if($system): ?><button type="button" data-fz-mode-value="system" aria-pressed="false"><?php echo esc_html($labels['system']);?></button><?php endif; ?>
+  </div></div>
  <?php }
 }
